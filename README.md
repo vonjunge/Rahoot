@@ -104,23 +104,41 @@ pnpm start
 
 The configuration is split into two main parts:
 
-### 1. Game Configuration (`config/game.json`)
+### 1. Environment Variables
 
-Main game settings:
+Set these environment variables in your Docker Compose file or `.env` file:
+
+**Required:**
+- `MANAGER_PASSWORD`: The master password for accessing the manager interface (must be set, no default)
+
+**Optional:**
+- `WEB_ORIGIN`: CORS origin for web access (default: `http://localhost:3000`)
+- `SOCKET_URL`: Socket server URL (default: `http://localhost:3001`)
+- `SOCKET_PORT`: Port for socket server (default: `3001`)
+- `BACKGROUND_IMAGE_URL`: Custom background image URL (optional)
+
+Example in `docker-compose.yml`:
+```yaml
+environment:
+  - MANAGER_PASSWORD=your_secure_password_here
+  - BACKGROUND_IMAGE_URL=https://example.com/bg.jpg
+```
+
+### 2. Game Configuration (`config/game.json`)
+
+Optional game settings:
 
 ```json
 {
-  "managerPassword": "PASSWORD",
   "music": true
 }
 ```
 
 Options:
 
-- `managerPassword`: The master password for accessing the manager interface
 - `music`: Enable/disable game music
 
-### 2. Quiz Configuration (`config/quizz/*.json`)
+### 3. Quiz Configuration (`config/quizz/*.json`)
 
 Create your quiz files in the `config/quizz/` directory. You can have multiple quiz files and select which one to use when starting a game.
 
@@ -156,7 +174,7 @@ Quiz Options:
 ## 🎮 How to Play
 
 1. Access the manager interface at http://localhost:3000/manager
-2. Enter the manager password (defined in quiz config)
+2. Enter the manager password (set via MANAGER_PASSWORD environment variable)
 3. Share the game URL (http://localhost:3000) and room code with participants
 4. Wait for players to join
 5. Click the start button to begin the game

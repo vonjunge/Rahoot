@@ -24,7 +24,6 @@ class Config {
         getPath("game.json"),
         JSON.stringify(
           {
-            managerPassword: "PASSWORD",
             music: true,
           },
           null,
@@ -74,24 +73,6 @@ class Config {
         )
       )
     }
-  }
-
-  static game() {
-    const isExists = fs.existsSync(getPath("game.json"))
-
-    if (!isExists) {
-      throw new Error("Game config not found")
-    }
-
-    try {
-      const config = fs.readFileSync(getPath("game.json"), "utf-8")
-
-      return JSON.parse(config)
-    } catch (error) {
-      console.error("Failed to read game config:", error)
-    }
-
-    return {}
   }
 
   static quizz() {

@@ -20,8 +20,6 @@ export const metadata: Metadata = {
 const RootLayout = ({ children }: PropsWithChildren) => {
   const backgroundImageUrl = env.BACKGROUND_IMAGE_URL
   
-  console.log('Background Image URL:', backgroundImageUrl)
-  
   return (
     <html lang="en" suppressHydrationWarning={true} data-lt-installed="true">
       <body 

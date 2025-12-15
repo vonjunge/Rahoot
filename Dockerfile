@@ -11,6 +11,7 @@ WORKDIR /app
 COPY pnpm-lock.yaml pnpm-workspace.yaml package.json ./
 COPY packages/web/package.json ./packages/web/
 COPY packages/socket/package.json ./packages/socket/
+COPY packages/common/package.json ./packages/common/
 
 # Install only production dependencies
 RUN pnpm install --frozen-lockfile --prod
@@ -52,15 +53,15 @@ RUN corepack enable && corepack prepare pnpm@latest --activate
 COPY pnpm-workspace.yaml package.json ./
 
 # Copy the Next.js standalone build
-COPY --from=builder /app/packages/web/.next/standalone ./
-COPY --from=builder /app/packages/web/.next/static ./packages/web/.next/static
-COPY --from=builder /app/packages/web/public ./packages/web/public
+COPY --from=builder --chown=nodejs:nodejs /app/packages/web/.next/standalone ./
+COPY --from=builder --chown=nodejs:nodejs /app/packages/web/.next/static ./packages/web/.next/static
+COPY --from=builder --chown=nodejs:nodejs /app/packages/web/public ./packages/web/public
 
 # Copy the socket server build
-COPY --from=builder /app/packages/socket/dist ./packages/socket/dist
+COPY --from=builder --chown=nodejs:nodejs /app/packages/socket/dist ./packages/socket/dist
 
 # Copy the game default config
-COPY --from=builder /app/config ./config
+COPY --from=builder --chown=nodejs:nodejs /app/config ./config
 
 # Expose the web and socket ports
 EXPOSE 3000 3001
@@ -68,6 +69,9 @@ EXPOSE 3000 3001
 # Environment variables
 ENV NODE_ENV=production
 ENV CONFIG_PATH=/app/config
+
+# Switch to non-root user
+USER nodejs
 
 # Start both services (Next.js web app + Socket server)
 CMD ["sh", "-c", "node packages/web/server.js & node packages/socket/dist/index.cjs"]
