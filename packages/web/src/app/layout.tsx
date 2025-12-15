@@ -1,3 +1,4 @@
+import BackgroundStyler from "@rahoot/web/components/BackgroundStyler"
 import Toaster from "@rahoot/web/components/Toaster"
 import { SocketProvider } from "@rahoot/web/contexts/socketProvider"
 import env from "@rahoot/web/env"
@@ -18,28 +19,15 @@ export const metadata: Metadata = {
 
 const RootLayout = ({ children }: PropsWithChildren) => {
   const backgroundImageUrl = env.BACKGROUND_IMAGE_URL
-  const hasCustomBackground = !!backgroundImageUrl && backgroundImageUrl.trim() !== ''
   
-  console.log('Background Image URL:', backgroundImageUrl, 'Has Custom:', hasCustomBackground)
+  console.log('Background Image URL:', backgroundImageUrl)
   
   return (
     <html lang="en" suppressHydrationWarning={true} data-lt-installed="true">
-      <head>
-        {hasCustomBackground && (
-          <style>{`
-            body {
-              background-image: url(${backgroundImageUrl}) !important;
-              background-size: cover !important;
-              background-position: center !important;
-              background-repeat: no-repeat !important;
-              background-color: transparent !important;
-            }
-          `}</style>
-        )}
-      </head>
       <body 
-        className={`${montserrat.variable} ${hasCustomBackground ? '' : 'bg-secondary'} antialiased`}
+        className={`${montserrat.variable} bg-secondary antialiased`}
       >
+        <BackgroundStyler backgroundImageUrl={backgroundImageUrl} />
         <SocketProvider>
           <main className="text-base-[8px] flex flex-col">{children}</main>
           <Toaster />
