@@ -22,20 +22,23 @@ const RootLayout = ({ children }: PropsWithChildren) => {
   
   console.log('Background Image URL:', backgroundImageUrl, 'Has Custom:', hasCustomBackground)
   
-  const backgroundStyle = hasCustomBackground
-    ? {
-        backgroundImage: `url(${backgroundImageUrl})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-      }
-    : {}
-
   return (
     <html lang="en" suppressHydrationWarning={true} data-lt-installed="true">
+      <head>
+        {hasCustomBackground && (
+          <style>{`
+            body {
+              background-image: url(${backgroundImageUrl}) !important;
+              background-size: cover !important;
+              background-position: center !important;
+              background-repeat: no-repeat !important;
+              background-color: transparent !important;
+            }
+          `}</style>
+        )}
+      </head>
       <body 
         className={`${montserrat.variable} ${hasCustomBackground ? '' : 'bg-secondary'} antialiased`}
-        style={backgroundStyle}
       >
         <SocketProvider>
           <main className="text-base-[8px] flex flex-col">{children}</main>
