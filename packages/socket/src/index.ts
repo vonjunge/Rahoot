@@ -15,7 +15,7 @@ const io: Server = new ServerIO({
 Config.init()
 
 const registry = Registry.getInstance()
-const port = 3001
+const port = env.SOCKET_PORT
 
 console.log(`Socket server running on port ${port}`)
 io.listen(Number(port))
@@ -51,9 +51,7 @@ io.on("connection", (socket) => {
 
   socket.on("manager:auth", (password) => {
     try {
-      const config = Config.game()
-
-      if (password !== config.managerPassword) {
+      if (password !== env.MANAGER_PASSWORD) {
         socket.emit("manager:errorMessage", "Invalid password")
 
         return
