@@ -17,10 +17,14 @@ export const metadata: Metadata = {
 }
 
 const RootLayout = ({ children }: PropsWithChildren) => {
-  const hasCustomBackground = !!env.BACKGROUND_IMAGE_URL
+  const backgroundImageUrl = env.BACKGROUND_IMAGE_URL
+  const hasCustomBackground = !!backgroundImageUrl && backgroundImageUrl.trim() !== ''
+  
+  console.log('Background Image URL:', backgroundImageUrl, 'Has Custom:', hasCustomBackground)
+  
   const backgroundStyle = hasCustomBackground
     ? {
-        backgroundImage: `url(${env.BACKGROUND_IMAGE_URL})`,
+        backgroundImage: `url(${backgroundImageUrl})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
