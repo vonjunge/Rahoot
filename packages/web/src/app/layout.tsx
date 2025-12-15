@@ -17,9 +17,9 @@ export const metadata: Metadata = {
 }
 
 const RootLayout = ({ children }: PropsWithChildren) => {
-  const backgroundStyle = env.NEXT_PUBLIC_BACKGROUND_IMAGE_URL
+  const backgroundStyle = env.BACKGROUND_IMAGE_URL
     ? {
-        backgroundImage: `url(${env.NEXT_PUBLIC_BACKGROUND_IMAGE_URL})`,
+        backgroundImage: `url(${env.BACKGROUND_IMAGE_URL})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',

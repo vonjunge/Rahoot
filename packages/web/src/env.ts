@@ -4,14 +4,12 @@ import { z } from "zod"
 const env = createEnv({
   server: {
     SOCKET_URL: z.string().default("http://localhost:3001"),
-  },
-  client: {
-    NEXT_PUBLIC_BACKGROUND_IMAGE_URL: z.string().url().optional(),
+    BACKGROUND_IMAGE_URL: z.string().url().optional(),
   },
 
   runtimeEnv: {
     SOCKET_URL: process.env.SOCKET_URL,
-    NEXT_PUBLIC_BACKGROUND_IMAGE_URL: process.env.NEXT_PUBLIC_BACKGROUND_IMAGE_URL,
+    BACKGROUND_IMAGE_URL: process.env.BACKGROUND_IMAGE_URL,
   },
 })
 

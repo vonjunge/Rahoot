@@ -25,7 +25,7 @@ MANAGER_PASSWORD=your_secure_password
 ### 1. Custom Background Image
 You can now set a custom background image via environment variable:
 ```bash
-NEXT_PUBLIC_BACKGROUND_IMAGE_URL=https://example.com/your-background.jpg
+BACKGROUND_IMAGE_URL=https://example.com/your-background.jpg
 ```
 
 If not set, the default background color will be used.
@@ -39,7 +39,7 @@ If not set, the default background color will be used.
 - `WEB_ORIGIN` - CORS origin for web access (default: `http://localhost:3000`)
 - `SOCKET_URL` - Socket server URL (default: `http://localhost:3001`)
 - `SOCKET_PORT` - Port for socket server (default: `3001`)
-- `NEXT_PUBLIC_BACKGROUND_IMAGE_URL` - Custom background image URL (default: none)
+- `BACKGROUND_IMAGE_URL` - Custom background image URL (default: none)
 
 ## Docker Compose Configuration
 
@@ -58,7 +58,7 @@ services:
       - WEB_ORIGIN=http://localhost:3000
       - SOCKET_URL=http://localhost:3001
       - MANAGER_PASSWORD=your_secure_password_here  # REQUIRED!
-      - NEXT_PUBLIC_BACKGROUND_IMAGE_URL=https://example.com/bg.jpg  # Optional
+      - BACKGROUND_IMAGE_URL=https://example.com/bg.jpg  # Optional
 ```
 
 ## GitHub Actions
