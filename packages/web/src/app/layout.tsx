@@ -17,7 +17,8 @@ export const metadata: Metadata = {
 }
 
 const RootLayout = ({ children }: PropsWithChildren) => {
-  const backgroundStyle = env.BACKGROUND_IMAGE_URL
+  const hasCustomBackground = !!env.BACKGROUND_IMAGE_URL
+  const backgroundStyle = hasCustomBackground
     ? {
         backgroundImage: `url(${env.BACKGROUND_IMAGE_URL})`,
         backgroundSize: 'cover',
@@ -29,7 +30,7 @@ const RootLayout = ({ children }: PropsWithChildren) => {
   return (
     <html lang="en" suppressHydrationWarning={true} data-lt-installed="true">
       <body 
-        className={`${montserrat.variable} bg-secondary antialiased`}
+        className={`${montserrat.variable} ${hasCustomBackground ? '' : 'bg-secondary'} antialiased`}
         style={backgroundStyle}
       >
         <SocketProvider>
